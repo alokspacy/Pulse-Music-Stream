@@ -1,0 +1,197 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-pulse-accent: #a855f7;
+  --color-pulse-accent-dim: #7e22ce;
+  --color-pulse-accent-bright: #d946ef;
+  --color-bg-base: #0c0b0e;
+  --color-bg-elevated-base: #14121a;
+  --color-bg-elevated-highlight: #221e2c;
+  --color-bg-press: #000000;
+  --color-bg-tinted-base: #181522;
+  --color-bg-tinted-highlight: #221e2c;
+  --color-bg-tinted-press: #0e0d14;
+  --color-text-base: #f3f0f7;
+  --color-text-subdued: #9e98a6;
+  --color-text-bright-accent: #a855f7;
+  --color-essential-subdued: #6b6375;
+  --color-decorative-subdued: #221a2e;
+
+  --font-sans:
+    var(--font-figtree), 'Circular', 'Helvetica Neue', Helvetica, Arial,
+    sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+  background: #000;
+  color: var(--color-text-base);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='switch']:not([aria-disabled='true']),
+  [role='tab']:not([aria-disabled='true']),
+  [role='menuitem']:not([aria-disabled='true']),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+}
+
+/* custom scrollbars */
+*::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+/* Range inputs */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+}
+input[type='range']::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  width: 12px;
+  background: #ffffff;
+  border-radius: 50%;
+  margin-top: -4px;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+input[type='range']::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  background: #ffffff;
+  border: 0;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+input[type='range']:hover::-webkit-slider-thumb,
+input[type='range']:focus-visible::-webkit-slider-thumb {
+  opacity: 1;
+}
+input[type='range']:hover::-moz-range-thumb,
+input[type='range']:focus-visible::-moz-range-thumb {
+  opacity: 1;
+}
+
+/* Playing bars animation */
+@keyframes equalizer {
+  0% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.3);
+  }
+}
+.equalizer-bar {
+  width: 3px;
+  height: 14px;
+  background: var(--color-pulse-accent);
+  border-radius: 1px;
+  transform-origin: bottom;
+  animation: equalizer 1s ease-in-out infinite;
+}
+.equalizer-bar:nth-child(1) {
+  animation-delay: 0s;
+}
+.equalizer-bar:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.equalizer-bar:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+/* Marquee for mobile player */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+.marquee {
+  animation: marquee 12s linear infinite;
+}
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Card hover utilities */
+.card-hover {
+  transition: background-color 200ms ease;
+}
+.card-hover:hover {
+  background-color: var(--color-bg-elevated-highlight);
+}
+
+/* Gradient noise overlay used for hero sections */
+.noise {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size:
+    4px 4px,
+    8px 8px;
+  background-position:
+    0 0,
+    2px 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(168, 85, 247, 0.4);
+  color: #ffffff;
+}

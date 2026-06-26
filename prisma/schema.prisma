@@ -1,0 +1,157 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// Auth.js core models
+
+model User {
+  id                  String        @id @default(cuid())
+  name                String?
+  email               String        @unique
+  emailVerified       DateTime?
+  image               String?
+  
+  passwordHash        String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  accounts            Account[]
+  sessions            Session[]
+  playlists           Playlist[]
+  likedTracks         LikedTrack[]
+  savedAlbums         SavedAlbum[]
+  followedArtists     FollowedArtist[]
+}
+
+model Account {
+  id                  String        @id @default(cuid())
+  userId              String
+  type                String
+  provider            String
+  providerAccountId   String
+  refresh_token       String?
+  access_token        String?
+  expires_at          Int?
+  token_type          String?
+  scope               String?
+  id_token            String?
+  session_state       String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id                  String          @id @default(cuid())
+  sessionToken        String          @unique
+  userId              String
+  expires             DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier          String
+  token               String          @unique
+  expires             DateTime
+
+  @@unique([identifier, token])
+}
+
+// App-specific models
+model Playlist {
+  id                  String          @id @default(cuid())
+  ownerId             String
+  name                String
+  description         String?
+  coverUrl            String?
+  isPublic            Boolean         @default(false)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  owner User          @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  tracks PlaylistTrack[]
+
+  @@index([ownerId])
+}
+
+model PlaylistTrack {
+  id                  String          @id @default(cuid())
+  playlistId          String
+  position            Int
+  trackId             String
+  title               String
+  artist              String
+  artistId            String?
+  album               String?
+  albumId             String?
+  durationSec         Int
+  coverurl            String?
+  audioUrl            String?
+  addedAt             DateTime @default(now())
+
+  playlist Playlist   @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, trackId])
+  @@index([playlistId])
+}
+
+model LikedTrack {
+  id                  String          @id @default(cuid())
+  userId              String
+  trackId             String
+  title               String
+  artist              String
+  artistId            String?
+  album               String?
+  albumId             String?
+  durationSec         Int
+  coverUrl            String?
+  audioUrl            String?
+  likedAt             DateTime @default(now())
+
+  user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, trackId])
+  @@index([userId])
+}
+
+model SavedAlbum {
+  id                  String          @id @default(cuid())
+  userId              String
+  albumId             String
+  title               String
+  artist              String
+  artistId            String?
+  coverUrl            String?
+  savedAt             DateTime        @default(now())
+
+  user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([userId, albumId])
+  @@index([userId])
+}
+
+model FollowedArtist {
+  id                  String          @id @default(cuid())
+  userId              String
+  artistId            String
+  name                String
+  imageUrl            String?
+  followedAt          DateTime        @default(now())
+
+  user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, artistId])
+  @@index([userId])
+}
