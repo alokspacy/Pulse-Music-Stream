@@ -30,7 +30,8 @@ export function CoverImage({
         ui.coverPlaceholder,
         coverShapeClass(shape),
         className,
-      )}>
+      )}
+      style={{ width: size, height: size }}>
       {src && (
         <Image
           src={src}
