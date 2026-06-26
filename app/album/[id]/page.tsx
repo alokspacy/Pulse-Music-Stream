@@ -17,8 +17,8 @@ export async function generateMetadata({
   return {
     title: `${album.title}${artist}`,
     description: album.artist
-      ? `Liste to ${album.title} by ${album.artist} on Spotify Clone.`
-      : `Liste to ${album.title} on Spotify Clone.`,
+      ? `Listen to ${album.title} by ${album.artist} on Pulse Music.`
+      : `Listen to ${album.title} on Pulse Music.`,
   };
 }
 

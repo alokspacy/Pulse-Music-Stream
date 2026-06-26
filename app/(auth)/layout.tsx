@@ -1,5 +1,5 @@
 import { PulseLogo } from '@/components/ui/PulseLogo';
-import { ArrowLeft, Headphones, Library, Music2 } from 'lucide-react';
+import { ArrowLeft, Headphones, Heart, Library, Music2 } from 'lucide-react';
 import Link from 'next/link';
 import { type ReactNode } from 'react';
 
@@ -82,9 +82,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
 
-          <p className="text-xs font-medium text-white/60">
-            A teaching project . Built with Next.js 16 & Auth.js
-          </p>
+
         </div>
       </aside>
 
@@ -99,6 +97,12 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <main className="flex flex-1 items-center justify-center px-5 py-10 sm:px-8 sm:py-14 lg:py-16">
           <div className="flex w-full max-w-md flex-col gap-7">{children}</div>
         </main>
+
+        <div className="absolute bottom-4 left-4 z-20 flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 backdrop-blur-xs transition hover:bg-white/10 hover:text-white md:bottom-6 md:left-6">
+          <span>Made with</span>
+          <Heart size={12} className="fill-pulse-accent text-pulse-accent animate-pulse" />
+          <span>by Alok</span>
+        </div>
 
         <footer className="py-5 pb-6 text-center text-xs text-text-subdued sm:px-8">
           By continuing you agree to our{' '}

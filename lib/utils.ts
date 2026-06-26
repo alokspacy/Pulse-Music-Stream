@@ -80,15 +80,15 @@ export function getGreeting(date: Date = new Date()): string {
 
 // ---- Visual identity -----
 const HEX_PALATTE = [
-  '#1e3a3a',
-  '#3a1e3a',
-  '#3a2e1e',
-  '#1e2a3a',
-  '#3a1e1e',
-  '#2a3a1e',
-  '#1e3a2e',
-  '#3a2a1e',
-  '#23163a',
+  '#23163a', // deep dark violet
+  '#3b0764', // purple-950
+  '#2e1065', // violet-950
+  '#1e1b4b', // indigo-950
+  '#4a044e', // fuchsia-950
+  '#3c0764', // royal dark purple
+  '#25163a', // dark purple plum
+  '#351c4a', // deep amethyst
+  '#1c0f30', // dark orchid night
 ];
 
 export function pickAccentHex(seed: string): string {

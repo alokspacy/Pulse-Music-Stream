@@ -76,13 +76,13 @@ export function HomeContent({ feed }: Props) {
     <>
       <Header
         scrollContainerRef={scrollRef as React.RefObject<HTMLElement | null>}
-        accent="linear-gradient(180deg,#1f4d3a 0%,#121212 100%)"
+        accent="linear-gradient(180deg,#23163a 0%,#121212 100%)"
         stickyContent={<span className="text-base font-bold">Home</span>}
       />
       <div className="relative">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-[-72px] h-[440px] bg-linear-to-b from-emerald-900/60 via-bg-base to-bg-base"
+          className="pointer-events-none absolute inset-x-0 top-[-72px] h-[440px] bg-linear-to-b from-pulse-accent-dim/40 via-bg-base to-bg-base"
         />
         <div className={cn('relative pt-2', ui.pagePadding)}>
           <motion.h1

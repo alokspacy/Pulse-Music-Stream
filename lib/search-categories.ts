@@ -7,7 +7,7 @@ export const searchCategories: Category[] = [
   {
     id: 'podcasts',
     name: 'Podcasts',
-    color: '#006450',
+    color: '#4c1d95',
     imageUrl: img('cat-podcasts'),
   },
   {
@@ -28,7 +28,7 @@ export const searchCategories: Category[] = [
     color: '#e8115b',
     imageUrl: img('cat-new'),
   },
-  { id: 'pop', name: 'Pop', color: '#148a08', imageUrl: img('cat-pop') },
+  { id: 'pop', name: 'Pop', color: '#a21caf', imageUrl: img('cat-pop') },
   {
     id: 'hip-hop',
     name: 'Hip-Hop',
@@ -62,7 +62,7 @@ export const searchCategories: Category[] = [
     color: '#b06239',
     imageUrl: img('cat-country'),
   },
-  { id: 'jazz', name: 'Jazz', color: '#608108', imageUrl: img('cat-jazz') },
+  { id: 'jazz', name: 'Jazz', color: '#701a75', imageUrl: img('cat-jazz') },
   {
     id: 'classical',
     name: 'Classical',

@@ -64,7 +64,7 @@ export function LoginForm() {
         value={password}
         onChange={setPassword}
         placeholder="Enter your password"
-        icon={<Mail size={18} />}
+        icon={<Lock size={18} />}
         required
         autoComplete="current-password"
       />
