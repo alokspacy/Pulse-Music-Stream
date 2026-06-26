@@ -116,18 +116,18 @@ function SearchContentBody({ initialQuery }: { initialQuery: string }) {
                   <span className="relative z-10 text-xl font-bold text-white drop-shadow">
                     {c.name}
                   </span>
-                  {/* <div
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-2 -right-2 h-24 w-24 rotate-[25deg] overflow-hidden rounded-md shadow-xl">
-                  <Image
-                    src={c.imageUrl}
-                    alt=""
-                    fill
-                    sizes="96px"
-                    priority={i < 5}
-                    className="object-cover"
-                  />
-                </div> */}
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -bottom-2 -right-2 h-24 w-24 rotate-[25deg] overflow-hidden rounded-md shadow-xl">
+                    <Image
+                      src={c.imageUrl}
+                      alt=""
+                      fill
+                      sizes="96px"
+                      priority={i < 5}
+                      className="object-cover"
+                    />
+                  </div>
                 </Link>
               ))}
             </div>
