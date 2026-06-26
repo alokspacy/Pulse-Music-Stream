@@ -15,6 +15,7 @@ interface VisualizerViewProps {
 export function VisualizerView({ isOpen, onClose }: VisualizerViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
+  const albumCoverRef = useRef<HTMLDivElement>(null);
 
   const track = usePlayerStore((s) => s.currentTrack);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
@@ -108,9 +109,16 @@ export function VisualizerView({ isOpen, onClose }: VisualizerViewProps) {
       ctx.fillStyle = `rgba(12, 11, 14, ${0.12 + (1 - bassFactor) * 0.08})`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const baseRadius = Math.min(canvas.width, canvas.height) * 0.16 + (bassAvg * 0.12);
+      let centerX = canvas.width / 2;
+      let centerY = canvas.height / 2;
+      let baseRadius = Math.min(canvas.width, canvas.height) * 0.16 + (bassAvg * 0.12);
+
+      if (albumCoverRef.current) {
+        const rect = albumCoverRef.current.getBoundingClientRect();
+        centerX = rect.left + rect.width / 2;
+        centerY = rect.top + rect.height / 2;
+        baseRadius = rect.width / 2 + 16 + (bassAvg * 0.12);
+      }
 
       // 1. Draw dynamic ambient radial glow pulsing with the bass
       const radialGlow = ctx.createRadialGradient(
@@ -245,6 +253,7 @@ export function VisualizerView({ isOpen, onClose }: VisualizerViewProps) {
         {/* Floating Album card */}
         <div className="group relative flex flex-col items-center">
           <div
+            ref={albumCoverRef}
             className={cn(
               "relative h-64 w-64 md:h-72 md:w-72 overflow-hidden rounded-full shadow-[0_16px_40px_rgba(0,0,0,0.8)] transition-transform duration-1000 ease-in-out border-4 border-black/40 ring-8 ring-white/5",
               isPlaying ? "animate-[spin_20s_linear_infinite]" : ""
