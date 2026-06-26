@@ -4,7 +4,6 @@ import { signIn } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 interface ProviderAvailability {
-  github: boolean;
   google: boolean;
 }
 
@@ -16,33 +15,27 @@ export function OAuthButtons() {
       .then((r) => r.json())
       .then((json) => {
         setAvailable({
-          github: Boolean(json?.github),
           google: Boolean(json?.google),
         });
       })
-      .catch(() => setAvailable({ github: false, google: false }));
+      .catch(() => setAvailable({ google: false }));
   }, []);
 
   if (!available) {
     return (
       <div className="flex flex-col gap-2.5" aria-hidden>
         <div className="h-11 animate-pulse rounded-full bg-white/5" />
-        <div className="h-11 animate-pulse rounded-full bg-white/5" />
       </div>
     );
   }
 
-  if (!available.github && !available.google) {
+  if (!available.google) {
     return (
       <div className="rounded-lg border border-white/10 bg-white/3 px-3.5 py-3 text-xs leading-relaxed text-text-subdued">
         <span className="font-semibold text-white">
-          OAuth providers aren't configured
+          Google OAuth is not configured
         </span>{' '}
         Set{' '}
-        <code className="rounded bg-black/60 px-1.5 py-0.5 font-mono text-[11px] text-white">
-          AUTH_GITHUB_ID
-        </code>{' '}
-        /{' '}
         <code className="rounded bg-black/60 px-1.5 py-0.5 font-mono text-[11px] text-white">
           AUTH_GOOGLE_ID
         </code>{' '}
@@ -50,20 +43,13 @@ export function OAuthButtons() {
         <code className="rounded bg-black/60 px-1.5 py-0.5 font-mono text-[11px] text-white">
           .env
         </code>{' '}
-        to enable them. Email + password works either way.
+        to enable it. Email + password works either way.
       </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-2.5">
-      {available.github && (
-        <ProviderButton
-          provider="github"
-          label="Continue with GitHub"
-          icon={<GitHubMark />}
-        />
-      )}
       {available.google && (
         <ProviderButton
           provider="google"
@@ -76,7 +62,7 @@ export function OAuthButtons() {
 }
 
 interface ProviderButtonProps {
-  provider: 'github' | 'google';
+  provider: 'google';
   label: string;
   icon: React.ReactNode;
 }
@@ -87,24 +73,11 @@ function ProviderButton({ provider, label, icon }: ProviderButtonProps) {
       type="button"
       onClick={() => signIn(provider, { callbackUrl: '/' })}
       className="group inline-flex w-full items-center justify-center gap-3 rounded-full border border-white/10 bg-white/4 px-4 py-3 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/8 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
-      <span className="inlin-flex h-5 w-5 items-center justify-center">
+      <span className="inline-flex h-5 w-5 items-center justify-center">
         {icon}
       </span>
       {label}
     </button>
-  );
-}
-
-function GitHubMark() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={20}
-      height={20}
-      fill="currentColor"
-      aria-hidden>
-      <path d="M12 .5a11.5 11.5 0 0 0-3.63 22.42c.58.1.79-.25.79-.55v-2.06c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.74 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.52-2.55-.29-5.24-1.27-5.24-5.66 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.17a11 11 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.57.23 2.73.11 3.02.74.8 1.18 1.82 1.18 3.07 0 4.4-2.7 5.37-5.26 5.65.41.35.78 1.05.78 2.12v3.14c0 .3.21.66.8.55A11.5 11.5 0 0 0 12 .5Z" />
-    </svg>
   );
 }
 

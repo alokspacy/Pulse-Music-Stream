@@ -1,6 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import GitHub from 'next-auth/providers/github';
 import Google from 'next-auth/providers/google';
 
 type Provider = NonNullable<NextAuthConfig['providers']>[number];
@@ -40,10 +39,6 @@ function buildProviders(): Provider[] {
       },
     }),
   ];
-
-  if (process.env.AUTH_GITHUB_ID && process.env.AUTH_GITHUB_SECRET) {
-    list.push(GitHub);
-  }
 
   if (process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) {
     list.push(Google);
